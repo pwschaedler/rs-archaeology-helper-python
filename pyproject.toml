@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "rs-archaeology-helper"
+version = "0.1.0"
+description = "Helper tool for the RuneScape archaeology skill."
+authors = ["Peter Schaedler <pwschaedler@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [
+    { include = "rs_arch" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.dev-dependencies]
+mypy = "^0.931"
+pylint = "^2.12.2"
+black = "^21.12b0"
+
+[tool.poetry.scripts]
+rs-archeology-helper = "rs_arch.cli:cli"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
