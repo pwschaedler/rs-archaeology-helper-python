@@ -1,25 +1,50 @@
-[tool.poetry]
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
 name = "rs-archaeology-helper"
-version = "0.1.0"
 description = "Helper tool for the RuneScape archaeology skill."
-authors = ["Peter Schaedler <pwschaedler@gmail.com>"]
-license = "MIT"
 readme = "README.md"
-packages = [
-    { include = "rs_arch" }
+requires-python = ">=3.10"
+license = {text = "MIT License"}
+authors = [
+    {name = "Peter Schaedler", email = "pwschaedler@gmail.com"}
+]
+dynamic = ["version"]
+
+[project.optional-dependencies]
+dev = [
+    "yapf",
+    "mypy",
+    "pylint"
+]
+test = [
+    "pytest",
+    "pytest-cov"
 ]
 
-[tool.poetry.dependencies]
-python = "^3.10"
-
-[tool.poetry.dev-dependencies]
-mypy = "^0.931"
-pylint = "^2.12.2"
-black = "^21.12b0"
-
-[tool.poetry.scripts]
+[project.scripts]
 rs-archeology-helper = "rs_arch.cli:cli"
 
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+[tool.setuptools_scm]
+
+[tool.pytest.ini_options]
+addopts = "--cov"
+
+
+
+
+
+#------------------------------------------------------------------------
+
+
+# authors = ["Peter Schaedler <pwschaedler@gmail.com>"]
+# packages = [
+#     { include = "rs_arch" }
+# ]
+
+# [tool.poetry.dev-dependencies]
+# mypy = "^0.931"
+# pylint = "^2.12.2"
+# black = "^21.12b0"

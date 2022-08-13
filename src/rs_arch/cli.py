@@ -16,10 +16,38 @@ MAIN_MENU = '''
 
 def cli():
     """The main command line interface."""
+
     debug_populate_library()
 
+    # print()
+    # from rs_arch import aggregation
+    # print(
+    #     aggregation.aggregate_materials_over_artefacts(
+    #         [lib.get_artefact("'Nosorog!' sculpture") for _ in range(3)]
+    #     )
+    # )
 
-def debug_populate_library():
+    # go = True
+    # while go:
+    #     print(MAIN_MENU)
+    #     menu_selection = input('> ')
+
+    #     if menu_selection == '1':
+    #         ...
+    #     elif menu_selection == '2':
+    #         ...
+    #     elif menu_selection == '3':
+    #         ...
+    #     elif menu_selection == '4':
+    #         ...
+    #     elif menu_selection == '5':
+    #         go = False
+    #     else:
+    #         print('Unsupported input.')
+
+
+def debug_populate_library() -> None:
+    """For debugging, create and test a simple library."""
     lib = JSONLibrary(Path('./data.json'))
     lib.add_collection(
         Collection(
