@@ -42,7 +42,8 @@ indent_dictionary_value = false
 
 [tool.pylint.messages_control]
 disable = [
-    "C0114"
+    "C0114",
+    "W2301"
 ]
 
 [tool.pylint.basic]
