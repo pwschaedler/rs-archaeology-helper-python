@@ -24,10 +24,10 @@ jobs:
           pip install pylint mypy
       - name: Lint with pylint
         run: |
-          pip install pylint
+          pylint .
       - name: Check types with mypy
         run: |
-          mypy
+          mypy .
       - name: Test with pytest
         run: |
           pytest
