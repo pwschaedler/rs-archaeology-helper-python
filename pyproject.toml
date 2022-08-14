@@ -32,7 +32,7 @@ rs-archeology-helper = "rs_arch.cli:cli"
 [tool.setuptools_scm]
 
 [tool.pytest.ini_options]
-addopts = "--cov"
+addopts = "--cov=src"
 
 [tool.yapf]
 based_on_style = "facebook"
