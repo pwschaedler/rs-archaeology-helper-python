@@ -17,7 +17,9 @@ dynamic = ["version"]
 dev = [
     "yapf",
     "mypy",
-    "pylint"
+    "pylint",
+    "isort",
+    "pre-commit"
 ]
 test = [
     "pytest",
@@ -32,19 +34,16 @@ rs-archeology-helper = "rs_arch.cli:cli"
 [tool.pytest.ini_options]
 addopts = "--cov"
 
+[tool.yapf]
+based_on_style = "facebook"
+column_limit = 88
+allow_split_before_dict_value = false
+indent_dictionary_value = false
 
+[tool.pylint.messages_control]
+disable = [
+    "C0114"
+]
 
-
-
-#------------------------------------------------------------------------
-
-
-# authors = ["Peter Schaedler <pwschaedler@gmail.com>"]
-# packages = [
-#     { include = "rs_arch" }
-# ]
-
-# [tool.poetry.dev-dependencies]
-# mypy = "^0.931"
-# pylint = "^2.12.2"
-# black = "^21.12b0"
+[tool.pylint.basic]
+good-names = "f"

@@ -1,10 +1,11 @@
 from typing import Iterable
+
 from rs_arch.models.artefact import Artefact
 from rs_arch.models.material import Material, MaterialAmount
 
 
 def aggregate_materials_over_artefacts(
-    artefacts: Iterable[Artefact],
+    artefacts: Iterable[Artefact]
 ) -> list[MaterialAmount]:
     """
     Given a list of artefacts, aggregate a list of material requirements such

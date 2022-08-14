@@ -1,7 +1,8 @@
-from abc import ABC, abstractmethod
 import json
+from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Any
+
 from rs_arch.models.artefact import Artefact
 from rs_arch.models.collection import Collection
 from rs_arch.models.material import Material, MaterialAmount
@@ -9,7 +10,6 @@ from rs_arch.models.material import Material, MaterialAmount
 
 class Library(ABC):
     """Data store and central knowledge base of known objects."""
-
     def __init__(self):
         self.artefacts: dict[str, Artefact] = {}
         self.collections: dict[str, Collection] = {}
@@ -59,7 +59,6 @@ class Library(ABC):
 
 class JSONLibrary(Library):
     """Program library stored as a JSON file on disk."""
-
     def __init__(self, fpath: Path):
         super().__init__()
         self.fpath = fpath
@@ -93,7 +92,8 @@ class JSONLibrary(Library):
         for collection in data['collections']:
             self.add_collection(self._collection_from_dict(collection))
 
-    def _artefact_as_dict(self, artefact: Artefact) -> dict[str, Any]:
+    @staticmethod
+    def _artefact_as_dict(artefact: Artefact) -> dict[str, Any]:
         """Convert an artefact to a dictionary representation for JSON output."""
         return {
             'name': artefact.name,
@@ -101,19 +101,20 @@ class JSONLibrary(Library):
                 {
                     'material': requirement.material.name,
                     'quantity': requirement.quantity,
-                }
-                for requirement in artefact.requirements
+                } for requirement in artefact.requirements
             ],
         }
 
-    def _collection_as_dict(self, collection: Collection) -> dict[str, Any]:
+    @staticmethod
+    def _collection_as_dict(collection: Collection) -> dict[str, Any]:
         """Convert a collection to a dictionary representation for JSON output."""
         return {
             'name': collection.name,
             'artefacts': [artefact.name for artefact in collection.artefacts],
         }
 
-    def _material_as_dict(self, material: Material) -> dict[str, Any]:
+    @staticmethod
+    def _material_as_dict(material: Material) -> dict[str, Any]:
         """Convert a material to a dictionary representation for JSON output."""
         return {'name': material.name, 'location': material.location}
 
@@ -125,8 +126,7 @@ class JSONLibrary(Library):
                 MaterialAmount(
                     material=self.get_material(requirement['material']),
                     quantity=requirement['quantity'],
-                )
-                for requirement in artefact_data['requirements']
+                ) for requirement in artefact_data['requirements']
             ],
         )
 
@@ -139,6 +139,7 @@ class JSONLibrary(Library):
             ],
         )
 
-    def _material_from_dict(self, material_data: dict[str, Any]) -> Material:
+    @staticmethod
+    def _material_from_dict(material_data: dict[str, Any]) -> Material:
         """Convert material data from JSON to an object instance."""
         return Material(**material_data)

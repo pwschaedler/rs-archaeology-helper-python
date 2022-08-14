@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+
 from rs_arch.models.artefact import Artefact
 from rs_arch.models.material import Material, MaterialAmount
 

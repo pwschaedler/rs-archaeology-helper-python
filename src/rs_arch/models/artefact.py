@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+
 from rs_arch.models.material import MaterialAmount
 
 

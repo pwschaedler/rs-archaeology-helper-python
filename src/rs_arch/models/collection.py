@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+
 from rs_arch import aggregation
 from rs_arch.models.artefact import Artefact
 from rs_arch.models.material import MaterialAmount

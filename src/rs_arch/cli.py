@@ -1,9 +1,9 @@
 from pathlib import Path
+
+from rs_arch.library import JSONLibrary
 from rs_arch.models.artefact import Artefact
 from rs_arch.models.collection import Collection
 from rs_arch.models.material import Material, MaterialAmount
-from rs_arch.library import JSONLibrary
-
 
 MAIN_MENU = '''
 [1] Add material
