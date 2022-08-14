@@ -21,3 +21,5 @@ Install pre-commit hooks.
 ```sh
 pre-commit install
 ```
+
+Run tests with `pytest`. Linting and formatting will be run on commit with pre-commit.
