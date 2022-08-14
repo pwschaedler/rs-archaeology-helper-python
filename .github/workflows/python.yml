@@ -24,7 +24,7 @@ jobs:
           pip install pylint mypy
       - name: Lint with pylint
         run: |
-          pylint .
+          pylint src tests
       - name: Check types with mypy
         run: |
           mypy .
