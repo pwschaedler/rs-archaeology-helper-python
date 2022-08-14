@@ -15,15 +15,15 @@ dynamic = ["version"]
 
 [project.optional-dependencies]
 dev = [
-    "yapf",
-    "mypy",
-    "pylint",
-    "isort",
+    "yapf==0.32.0",
+    "mypy==0.971",
+    "pylint==2.14.5",
+    "isort==5.10.1",
     "pre-commit"
 ]
 test = [
-    "pytest",
-    "pytest-cov"
+    "pytest==7.1.2",
+    "pytest-cov==3.0.0"
 ]
 
 [project.scripts]
