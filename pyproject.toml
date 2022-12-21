@@ -12,18 +12,19 @@ authors = [
     {name = "Peter Schaedler", email = "pwschaedler@gmail.com"}
 ]
 dynamic = ["version"]
+dependencies = [
+    "questionary"
+]
 
 [project.optional-dependencies]
 dev = [
-    "yapf==0.32.0",
-    "mypy==0.971",
-    "pylint==2.14.5",
-    "isort==5.10.1",
-    "pre-commit"
-]
-test = [
-    "pytest==7.1.2",
-    "pytest-cov==3.0.0"
+    "black",
+    "mypy",
+    "pylint",
+    "isort",
+    "pre-commit",
+    "pytest",
+    "coverage[toml]"
 ]
 
 [project.scripts]
@@ -31,14 +32,11 @@ rs-archeology-helper = "rs_arch.cli:cli"
 
 [tool.setuptools_scm]
 
-[tool.pytest.ini_options]
-addopts = "--cov=src"
+[tool.black]
+skip-string-normalization = true
 
-[tool.yapf]
-based_on_style = "facebook"
-column_limit = 88
-allow_split_before_dict_value = false
-indent_dictionary_value = false
+[tool.coverage.run]
+source = ["src"]
 
 [tool.pylint.messages_control]
 disable = [

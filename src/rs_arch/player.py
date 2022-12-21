@@ -15,6 +15,7 @@ class MaterialStorage(UserDict[Material, int]):
     set. I imagine the material storage here will act more as a lookup of
     specific materials, so I made it a dict instead.
     """
+
     def __getitem__(self, key: Material | str) -> int:
         if isinstance(key, str):
             key = Material(key)

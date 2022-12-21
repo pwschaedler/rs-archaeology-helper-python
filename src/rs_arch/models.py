@@ -23,16 +23,20 @@ class Artefact:
     name: str
     required_materials: list[MaterialAmount]
 
-    def __init__(
-        self, name: str, required_materials: Sequence[tuple[Material, int]]
-    ) -> None:
+    def __init__(self, name: str,
+                 required_materials: Sequence[tuple[Material, int]]) -> None:
         self.name = name
-        self.required_materials = [MaterialAmount(*t) for t in required_materials]
+        self.required_materials = [
+            MaterialAmount(*t) for t in required_materials
+        ]
 
     @property
     def material_names(self) -> list[str]:
         """Names of all materials required to restore this artefact."""
-        return [material_req.material.name for material_req in self.required_materials]
+        return [
+            material_req.material.name
+            for material_req in self.required_materials
+        ]
 
 
 @dataclass

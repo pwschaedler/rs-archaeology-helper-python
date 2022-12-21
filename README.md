@@ -13,7 +13,7 @@ A small tool written in Python to help calculate useful quantities for materials
 Install the project in editable mode in a virtualenv.
 
 ```sh
-pip install -e .[dev,test]
+pip install -e ".[dev]"
 ```
 
 Install pre-commit hooks.
@@ -22,4 +22,10 @@ Install pre-commit hooks.
 pre-commit install
 ```
 
-Run tests with `pytest`. Linting and formatting will be run on commit with pre-commit.
+Run tests with `pytest`. Linting and formatting will be run on commit with pre-commit. Coverage report can be generated with `coverage`.
+
+```sh
+coverage run -m pytest
+coverage report
+coverage html
+```

@@ -13,8 +13,7 @@ def test_create_arterfact() -> None:
     assert axe.required_materials[0].material.name == 'Warforged bronze'
     assert axe.required_materials[2].amount == 24
     assert set(axe.material_names) == set(
-        ['Warforged bronze', 'Fossilised bone', 'Mark of the Kyzaj']
-    )
+        ['Warforged bronze', 'Fossilised bone', 'Mark of the Kyzaj'])
 
 
 def test_create_collection() -> None:
@@ -27,8 +26,10 @@ def test_create_collection() -> None:
     coll = Collection('Red Rum Relics I/2', [sword, axe])
 
     assert coll.artefacts[0].name == 'Ork cleaver sword'
-    assert coll.artefacts[1].required_materials[1].material.name == 'Mark of the Kyzaj'
-    assert set(coll.artefact_names) == set(['Ork cleaver sword', 'Ogre Kyzaj axe'])
+    assert coll.artefacts[1].required_materials[
+        1].material.name == 'Mark of the Kyzaj'
+    assert set(coll.artefact_names) == set(
+        ['Ork cleaver sword', 'Ogre Kyzaj axe'])
 
 
 def test_collection_materials() -> None:
