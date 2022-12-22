@@ -13,7 +13,9 @@ authors = [
 ]
 dynamic = ["version"]
 dependencies = [
-    "questionary"
+    "beautifulsoup4",
+    "questionary",
+    "requests"
 ]
 
 [project.optional-dependencies]
@@ -24,7 +26,8 @@ dev = [
     "isort",
     "pre-commit",
     "pytest",
-    "coverage[toml]"
+    "coverage[toml]",
+    "types-requests"
 ]
 
 [project.scripts]

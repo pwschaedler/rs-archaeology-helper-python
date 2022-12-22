@@ -1,47 +1,37 @@
 """Core data structures describing archaeology objects."""
 
 from collections import defaultdict
-from dataclasses import dataclass
-from typing import NamedTuple, Sequence
+from typing import NamedTuple
 
 
-@dataclass(frozen=True)
-class Material:
+class Material(NamedTuple):
     """An individual type of material used in archaeology."""
+
     name: str
 
 
 class MaterialAmount(NamedTuple):
     """A material and an associated quantity."""
+
     material: Material
     amount: int
 
 
-@dataclass(init=False)
-class Artefact:
+class Artefact(NamedTuple):
     """A damaged artefact in archaeology that requires materials to restore."""
+
     name: str
     required_materials: list[MaterialAmount]
-
-    def __init__(self, name: str,
-                 required_materials: Sequence[tuple[Material, int]]) -> None:
-        self.name = name
-        self.required_materials = [
-            MaterialAmount(*t) for t in required_materials
-        ]
 
     @property
     def material_names(self) -> list[str]:
         """Names of all materials required to restore this artefact."""
-        return [
-            material_req.material.name
-            for material_req in self.required_materials
-        ]
+        return [material_req.material.name for material_req in self.required_materials]
 
 
-@dataclass
-class Collection:
+class Collection(NamedTuple):
     """A collection of artefacts to donate."""
+
     name: str
     artefacts: list[Artefact]
 
