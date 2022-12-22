@@ -24,18 +24,23 @@ def main_menu_selection() -> Callable[[], None]:
         'Print artefacts being tracked': lambda: None,
         'Clear material storage': lambda: None,
         'Clear artefacts being tracked': lambda: None,
-        'Exit': lambda: None
+        'Exit': lambda: None,
     }
 
     question = questionary.select(
         'Main Menu',
         choices=[
-            'Update current material storage', 'Update artefacts to track',
+            'Update current material storage',
+            'Update artefacts to track',
             'Get materials needed for artefacts',
-            'Print current material storage', 'Print artefacts being tracked',
-            'Clear material storage', 'Clear artefacts being tracked', 'Exit'
+            'Print current material storage',
+            'Print artefacts being tracked',
+            'Clear material storage',
+            'Clear artefacts being tracked',
+            'Exit',
         ],
-        use_shortcuts=True)
+        use_shortcuts=True,
+    )
     return choice_map[question.ask()]
 
 
