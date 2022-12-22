@@ -6,7 +6,7 @@ from the RS Wiki.
 from typing import Iterator
 
 import requests
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag
 
 from rs_arch.models import Artefact, Collection, Material, MaterialAmount
 
@@ -23,6 +23,7 @@ def get_collections() -> Iterator[tuple[str, str]]:
     collections_html = requests.get(collections_url, timeout=30).text
     parser = BeautifulSoup(collections_html, 'html.parser')
     table = parser.find('table')
+    assert isinstance(table, Tag)
 
     # Skip the header row
     for row in table.find_all('tr')[1:]:

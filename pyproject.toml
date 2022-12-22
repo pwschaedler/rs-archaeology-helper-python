@@ -28,7 +28,8 @@ dev = [
     "pre-commit",
     "pytest==7.1.2",
     "coverage[toml]",
-    "types-requests==2.28.11.6"
+    "types-requests==2.28.11.6",
+    "types-beautifulsoup4==4.11.6.1"
 ]
 
 [project.scripts]
