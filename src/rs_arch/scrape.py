@@ -20,7 +20,7 @@ def get_collections() -> Iterator[tuple[str, str]]:
     rs_wiki_root = 'https://runescape.wiki'
     name_col_idx = 1
 
-    collections_html = requests.get(collections_url).text
+    collections_html = requests.get(collections_url, timeout=30).text
     parser = BeautifulSoup(collections_html, 'html.parser')
     table = parser.find('table')
 
@@ -39,7 +39,7 @@ def get_collection_information(
     name_col_idx = 0
     materials_col_idx = 5
 
-    collection_html = requests.get(collection_link).text
+    collection_html = requests.get(collection_link, timeout=30).text
     parser = BeautifulSoup(collection_html, 'html.parser')
 
     # Skip the first table, which is the page infobox

@@ -42,6 +42,9 @@ skip-string-normalization = true
 [tool.coverage.run]
 source = ["src"]
 
+[tool.pylint.reports]
+score = "n"
+
 [tool.pylint.messages_control]
 disable = [
     "C0114",  # missing-module-docstring
