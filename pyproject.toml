@@ -19,15 +19,16 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+# Many of these pinned to match pre-commit with GitHub actions
 dev = [
-    "black",
-    "mypy",
-    "pylint",
-    "isort",
+    "black==22.12.0",
+    "mypy==0.971",
+    "pylint==2.15.9",
+    "isort==5.10.1",
     "pre-commit",
-    "pytest",
+    "pytest==7.1.2",
     "coverage[toml]",
-    "types-requests"
+    "types-requests==2.28.11.6"
 ]
 
 [project.scripts]
@@ -43,8 +44,8 @@ source = ["src"]
 
 [tool.pylint.messages_control]
 disable = [
-    "C0114",
-    "W2301"
+    "C0114",  # missing-module-docstring
+    "W2301"   # unnecessary-ellipsis
 ]
 
 [tool.pylint.basic]
