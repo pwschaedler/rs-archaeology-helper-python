@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
+import json
 from collections import defaultdict
-from typing import NamedTuple, TypeAlias
+from typing import Any, NamedTuple, TypeAlias
 
 MaterialQuantity: TypeAlias = tuple[str, int]
 
@@ -77,6 +78,52 @@ class KnowledgeBase:
         cls.materials = {}
         cls.artefacts = {}
         cls.collections = {}
+
+    @classmethod
+    def save(cls, filename: str) -> None:
+        """Save the knowledge base to file as JSON. Everything is sorted for reproducibility."""
+        data: dict[str, Any] = {}
+
+        data['materials'] = sorted([material[0] for material in cls.materials.values()])
+        data['artefacts'] = sorted(
+            [
+                {
+                    'name': artefact.name,
+                    'required_materials': sorted(list(artefact.required_materials)),
+                }
+                for artefact in cls.artefacts.values()
+            ],
+            key=lambda item: item['name'],
+        )
+        data['collections'] = sorted(
+            [
+                {
+                    'name': collection.name,
+                    'artefacts': sorted(list(collection.artefacts)),
+                }
+                for collection in cls.collections.values()
+            ],
+            key=lambda item: item['name'],
+        )
+
+        with open(filename, 'w', encoding='utf-8') as f:
+            json.dump(data, f)
+
+    @classmethod
+    def load(cls, filename: str) -> None:
+        """Load knowledge base from JSON file."""
+        with open(filename, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+
+        for material in data['materials']:
+            cls.add_material(material)
+        for artefact in data['artefacts']:
+            cls.add_artefact(
+                artefact['name'],
+                set((req[0], req[1]) for req in artefact['required_materials']),
+            )
+        for collection in data['collections']:
+            cls.add_collection(collection['name'], set(collection['artefacts']))
 
 
 class Goal:

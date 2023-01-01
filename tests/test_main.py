@@ -1,5 +1,6 @@
 """Tests for the main functionality of the package."""
 
+import tempfile
 from typing import Generator
 
 import pytest
@@ -167,6 +168,46 @@ def test_kb_global_behavior() -> None:
     assert material is not None
     kb1.clear()
     assert kb2.get_material('Everlight silvthril') is None
+
+
+@pytest.mark.usefixtures('setup_saradominist_iii')
+def test_kb_save_to_json() -> None:
+    """Test saving knowledge base to JSON file."""
+    # To examine the contents for debugging:
+    # filename = 'kb.json'
+    # Path(filename).unlink(missing_ok=True)
+
+    with tempfile.NamedTemporaryFile(mode='w+', encoding='utf-8') as fp:
+        kb = rs.KnowledgeBase
+        filename = fp.name
+        kb.save(filename)
+        text = fp.read().strip()
+
+    # pylint: disable=line-too-long
+    assert (
+        text
+        == '{"materials": ["Clockwork", "Everlight silvthril", "Goldrune", "Keramos", "Leather scraps", "Star of Saradomin", "Third Age iron", "White marble"], "artefacts": [{"name": "Amphora", "required_materials": [["Everlight silvthril", 34], ["Keramos", 46]]}, {"name": "Dominarian device", "required_materials": [["Clockwork", 1], ["Everlight silvthril", 30], ["Keramos", 22], ["Third Age iron", 22]]}, {"name": "Fishing trident", "required_materials": [["Goldrune", 22], ["Star of Saradomin", 22], ["Third Age iron", 30]]}, {"name": "Kopis dagger", "required_materials": [["Everlight silvthril", 50], ["Leather scraps", 42]]}, {"name": "Rod of Asclepius", "required_materials": [["Goldrune", 26], ["Star of Saradomin", 24], ["White marble", 30]]}, {"name": "Xiphos short sword", "required_materials": [["Everlight silvthril", 46], ["Leather scraps", 46]]}], "collections": [{"name": "Saradominist III", "artefacts": ["Amphora", "Dominarian device", "Fishing trident", "Kopis dagger", "Rod of Asclepius", "Xiphos short sword"]}]}'
+    )
+    # pylint: enable=line-too-long
+
+
+def test_kb_load_from_json() -> None:
+    """Test loading knowledge base from JSON file."""
+    kb = rs.KnowledgeBase
+
+    with tempfile.NamedTemporaryFile(mode='w+', encoding='utf-8') as fp:
+        # pylint: disable=line-too-long
+        fp.write(
+            '{"materials": ["Clockwork", "Everlight silvthril", "Goldrune", "Keramos", "Leather scraps", "Star of Saradomin", "Third Age iron", "White marble"], "artefacts": [{"name": "Amphora", "required_materials": [["Everlight silvthril", 34], ["Keramos", 46]]}, {"name": "Dominarian device", "required_materials": [["Clockwork", 1], ["Everlight silvthril", 30], ["Keramos", 22], ["Third Age iron", 22]]}, {"name": "Fishing trident", "required_materials": [["Goldrune", 22], ["Star of Saradomin", 22], ["Third Age iron", 30]]}, {"name": "Kopis dagger", "required_materials": [["Everlight silvthril", 50], ["Leather scraps", 42]]}, {"name": "Rod of Asclepius", "required_materials": [["Goldrune", 26], ["Star of Saradomin", 24], ["White marble", 30]]}, {"name": "Xiphos short sword", "required_materials": [["Everlight silvthril", 46], ["Leather scraps", 46]]}], "collections": [{"name": "Saradominist III", "artefacts": ["Amphora", "Dominarian device", "Fishing trident", "Kopis dagger", "Rod of Asclepius", "Xiphos short sword"]}]}'
+        )
+        # pylint: enable=line-too-long
+        fp.flush()
+        filename = fp.name
+        kb.load(filename)
+
+    assert kb.get_collection('Saradominist III') is not None
+    assert kb.get_artefact('Dominarian device') is not None
+    assert kb.get_material('Everlight silvthril') is not None
 
 
 def test_material_storage_get_materials() -> None:
