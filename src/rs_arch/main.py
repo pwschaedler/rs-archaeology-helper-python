@@ -150,8 +150,8 @@ class Goal:
 
     def get_materials_needed(
         self, material_storage: MaterialStorage | None = None
-    ) -> set[MaterialQuantity]:
-        """Get all materials needed to achieve the goal."""
+    ) -> list[MaterialQuantity]:
+        """Get all materials needed to achieve the goal, sorted by quantity."""
         materials_needed: dict[str, int] = defaultdict(int)
 
         # Get all materials needed from goals
@@ -174,7 +174,7 @@ class Goal:
             if quantity > 0
         }
 
-        return set(materials_needed.items())
+        return sorted(materials_needed.items(), key=lambda item: (item[1], item[0]))
 
 
 class MaterialStorage:

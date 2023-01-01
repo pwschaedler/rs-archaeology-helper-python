@@ -109,6 +109,14 @@ def test_kb_add_material() -> None:
     assert material.name == 'Everlight silvthril'
 
 
+def test_kb_add_material_duplicates() -> None:
+    """Test adding the same material multiple times is idempotent."""
+    kb = rs.KnowledgeBase
+    kb.add_material('Everlight silvthril')
+    kb.add_material('Everlight silvthril')
+    assert len(kb.materials) == 1
+
+
 def test_kb_add_artefact() -> None:
     """Test adding an artefact to the knowledge base."""
     kb = rs.KnowledgeBase
@@ -280,16 +288,16 @@ def test_goal_get_materials_needed_no_storage() -> None:
     goal = rs.Goal()
     goal.add_collection('Saradominist III')
     materials_needed = goal.get_materials_needed()
-    assert materials_needed == {
-        ('White marble', 30),
-        ('Leather scraps', 88),
-        ('Keramos', 68),
-        ('Goldrune', 48),
-        ('Star of Saradomin', 46),
+    assert materials_needed == [
         ('Clockwork', 1),
+        ('White marble', 30),
+        ('Star of Saradomin', 46),
+        ('Goldrune', 48),
         ('Third Age iron', 52),
+        ('Keramos', 68),
+        ('Leather scraps', 88),
         ('Everlight silvthril', 160),
-    }
+    ]
 
 
 @pytest.mark.usefixtures('setup_saradominist_iii')
@@ -301,12 +309,12 @@ def test_goal_get_materials_needed_with_storage() -> None:
     materials = rs.MaterialStorage({('Everlight silvthril', 100), ('Goldrune', 100)})
 
     materials_needed = goal.get_materials_needed(materials)
-    assert materials_needed == {
-        ('White marble', 30),
-        ('Leather scraps', 88),
-        ('Keramos', 68),
-        ('Star of Saradomin', 46),
+    assert materials_needed == [
         ('Clockwork', 1),
+        ('White marble', 30),
+        ('Star of Saradomin', 46),
         ('Third Age iron', 52),
         ('Everlight silvthril', 60),
-    }
+        ('Keramos', 68),
+        ('Leather scraps', 88),
+    ]
