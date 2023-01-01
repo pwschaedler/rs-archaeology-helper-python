@@ -35,6 +35,9 @@ dev = [
 [project.scripts]
 rs-archeology-helper = "rs_arch.cli:cli"
 
+[tool.setuptools.package-data]
+rs_arch = ["py.typed"]
+
 [tool.setuptools_scm]
 
 [tool.black]
